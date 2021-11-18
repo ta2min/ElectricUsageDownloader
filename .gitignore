@@ -1,0 +1,10 @@
+download
+.env
+gpg_key
+log
+node_modules
+package-lock.json
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
