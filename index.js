@@ -89,8 +89,11 @@ const s3Prefix = process.argv[3];
     );
     let records = parse(data, {
         columns: false,
-    }).slice(1);
+    })//.slice(1);
     records = records.map(value => {
+        if (value[1] === '') {
+            value[1] = 0;
+        }
         return value.slice(0, -1);
     });
     const csvString = stringifySync(records);
