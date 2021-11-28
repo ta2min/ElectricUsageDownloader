@@ -77,11 +77,11 @@ async function uploadToS3(key, csv) {
     });
 }
 
-// '#dayBtn > span > span'
-// '#hourBtn > span > span'
-const periodSelector = process.argv[2];
-const s3Prefix = process.argv[3];
 (async() => {
+    // '#dayBtn > span > span'
+    // '#hourBtn > span > span'
+    const periodSelector = process.argv[2];
+    const s3Prefix = process.argv[3];
     await usageCSVDownload(periodSelector);
     const data = iconv.decode(
         fs.readFileSync('./download/download'),
