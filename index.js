@@ -99,5 +99,5 @@ const s3Prefix = process.argv[3];
     const csvString = stringifySync(records);
     logger.debug(csvString);
     const today = new Date();
-    await uploadToS3(s3Prefix + getFileName(today), csvString);
+    await uploadToS3(path.join(s3Prefix, getFileName(today)), csvString);
 })();
