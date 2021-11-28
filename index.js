@@ -45,6 +45,7 @@ async function usageCSVDownload(graphKindSelector) {
         await page.waitForTimeout(1000);
     } catch (e) {
         logger.error('Download Failed', e);
+        process.exit(1);
     }
 
     logger.info('Download Success');
