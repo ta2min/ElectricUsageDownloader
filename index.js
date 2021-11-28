@@ -94,7 +94,7 @@ async function uploadToS3(key, csv) {
     );
     let records = parse(data, {
         columns: false,
-    })//.slice(1);
+    }).slice(1);
     records = records.map(value => {
         if (value[1] === '') {
             value[1] = 0;
