@@ -53,11 +53,15 @@ async function usageCSVDownload(graphKindSelector) {
     browser.close();
 }
 
-function getFileName(date) {
+function getFileName(date, wantDate) {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
-    return `${year}-${month}-${day}.csv`
+    if (wantDate === 'day') {
+        return `${year}-${month}-${day}.csv`;
+    } else {
+        return `${year}-${month}.csv`;
+    }
 }
 
 async function uploadToS3(key, csv) {
@@ -99,5 +103,5 @@ async function uploadToS3(key, csv) {
     const csvString = stringifySync(records);
     logger.debug(csvString);
     const today = new Date();
-    await uploadToS3(path.join(s3Prefix, getFileName(today)), csvString);
+    await uploadToS3(path.join(s3Prefix, getFileName(today, s3Prefix)), csvString);
 })();
