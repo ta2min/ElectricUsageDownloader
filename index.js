@@ -56,8 +56,8 @@ async function usageCSVDownload(graphKindSelector) {
 
 function getFileName(date, wantDate) {
     const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+    const month = ('0' + String(date.getMonth() + 1)).slice(-2);
+    const day = ('0' + String(date.getDate())).slice(-2);
     console.log(date)
     if (wantDate === 'day') {
         return `${year}-${month}-${day}.csv`;
