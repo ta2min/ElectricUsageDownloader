@@ -15,8 +15,8 @@ logger.level = process.env.LOG_LEVEL;
 async function usageCSVDownload(graphKindSelector) {
     const browser = await puppeteer.launch({
         executablePath: '/usr/bin/chromium-browser',
-        headless: false,
-        slowMo: 50,
+        headless: true,
+        slowMo: 200,
         defaultViewport: { 'width': 1200, 'height': 900 }
     });
 
