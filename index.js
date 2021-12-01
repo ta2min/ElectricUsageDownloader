@@ -14,7 +14,8 @@ logger.level = process.env.LOG_LEVEL;
 
 async function usageCSVDownload(graphKindSelector) {
     const browser = await puppeteer.launch({
-        headless: true,
+        executablePath: '/usr/bin/chromium-browser',
+        headless: false,
         slowMo: 50,
         defaultViewport: { 'width': 1200, 'height': 900 }
     });
@@ -28,7 +29,7 @@ async function usageCSVDownload(graphKindSelector) {
         const url = process.env.LOGIN_URL;
         await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-        await page.type('#TAccountLoginid', process.env.USER);
+        await page.type('#TAccountLoginid', process.env.LOGIN_USER);
         await page.type("#TAccountPass", process.env.PASSWORD);
         await page.click('#TAccountIndexForm > div.lf_co_main > div > div > div > div.lf_doorBox > div.lf_pa_btn_big0 > button');
 
