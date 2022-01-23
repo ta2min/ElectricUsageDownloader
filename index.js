@@ -100,10 +100,30 @@ async function uploadToS3(key, csv) {
         if (value[1] === '') {
             value[1] = 0;
         }
-        return value.slice(0, -1);
+        if (value[2] === '') {
+            value[2] = 0;
+        }
+        return value;
     });
-    const csvString = stringifySync(records);
-    logger.debug(csvString);
+    // 今日 or 今月
+    const currentTimeRecords = records.map(value => {
+        return value.slice(0, -1);
+    })
+    // 昨日 or 昨月
+    const pastTimeRecords = records.map(value => {
+        return [value[0], value[2]];
+    })
+    const currentCsvString = stringifySync(currentTimeRecords);
+    logger.debug(currentCsvString);
     const today = new Date();
-    await uploadToS3(path.join(s3Prefix, getFileName(today, s3Prefix)), csvString);
+    await uploadToS3(path.join(s3Prefix, getFileName(today, s3Prefix)), currentCsvString);
+    const pastTimeCsvString = stringifySync(pastTimeRecords);
+    logger.debug(pastTimeCsvString);
+    let past = new Date();
+    if (s3Prefix === 'day') { 
+        past.setDate(past.getDate() - 1);
+    } else if (s3Prefix === 'month') {
+        past.setMonth(past.getMonth() - 1);
+    }
+    await uploadToS3(path.join(s3Prefix, getFileName(past, s3Prefix)), pastTimeCsvString);
 })();
